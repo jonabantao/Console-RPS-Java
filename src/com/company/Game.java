@@ -4,7 +4,6 @@ import java.util.*;
 
 class Game {
 
-    private final Set<String> VALID_INPUTS = new HashSet<>(Arrays.asList("play", "history", "quit"));
     private ArrayList<String> history = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
     private boolean isPlaying = true;
@@ -36,10 +35,6 @@ class Game {
                     System.out.println("Invalid option!");
             }
         }
-    }
-
-    private boolean isValidPlayer(String input) {
-        return VALID_INPUTS.contains(input.toLowerCase());
     }
 
     private void displayIntro() {
