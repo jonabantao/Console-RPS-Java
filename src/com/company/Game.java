@@ -70,11 +70,9 @@ class Game {
             switch (compareInput) {
                 case 1:
                     addToHistory(player1.getName(), firstPlayerInput, player2.getName(), secondPlayerInput);
-                    System.out.println(player1.getName() + " chooses " + firstPlayerInput + " and wins!");
                     return;
                 case 2:
-                    addToHistory(player2.getName(), firstPlayerInput, player1.getName(), secondPlayerInput);
-                    System.out.println(player2.getName() + " chooses " + secondPlayerInput + " and wins!");
+                    addToHistory(player2.getName(), secondPlayerInput, player1.getName(), firstPlayerInput);
                     return;
                 default:
                     System.out.println("Tie! Play again!");
@@ -113,6 +111,8 @@ class Game {
     private void addToHistory(String winner, String winningMove, String loser, String losingMove) {
         String log = winner + " (" + winningMove + ")" + " beats " + loser + " (" + losingMove + ")";
         history.add(log);
+
+        System.out.printf("%s (%s) beats %s (%s)!\n", winner, winningMove, loser, losingMove);
     }
 
     private Player requestPlayer(int computerNum) {
