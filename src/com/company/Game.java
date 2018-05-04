@@ -81,7 +81,7 @@ class Game {
     }
 
 
-    /*
+    /**
     *   Returns the player number who wins based on hand played
     *
     *   @param input1   Player one's hand
@@ -115,11 +115,11 @@ class Game {
         System.out.printf("%s (%s) beats %s (%s)!\n", winner, winningMove, loser, losingMove);
     }
 
-    private Player requestPlayer(int computerNum) {
+    private Player requestPlayer(int playerNum) {
         String playerInput;
 
         while (true) {
-            System.out.println("Select 'human' or 'computer' for Player " + computerNum + ": ");
+            System.out.printf("Select 'human' or 'computer' for Player %s: ", playerNum);
             playerInput = scanner.nextLine().toLowerCase();
 
             switch(playerInput) {
@@ -128,7 +128,7 @@ class Game {
                     String playerName = scanner.nextLine();
                     return new Human(playerName);
                 case "computer":
-                    return new Computer("Player " + computerNum + " (CPU)");
+                    return new Computer("Player " + playerNum + " (CPU)");
                 default:
                     System.out.println("Please choose 'human' or 'computer'");
             }
