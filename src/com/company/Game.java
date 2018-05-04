@@ -109,8 +109,10 @@ class Game {
     }
 
     private void addToHistory(String winner, String winningMove, String loser, String losingMove) {
-        String log = String.format("WINNER: %s (%s)  |  LOSER: %s (%s)", winner, winningMove, loser, losingMove);
-        System.out.println(log);
+        String dateNow = Util.createDateNow();
+        String roundHistory = String.format("WINNER: %s (%s)  |  LOSER: %s (%s)", winner, winningMove, loser, losingMove);
+        String log = String.format("[%s] %s", dateNow, roundHistory);
+        System.out.println(roundHistory);
         history.add(log);
     }
 
@@ -127,7 +129,7 @@ class Game {
                     String playerName = scanner.nextLine();
                     return new Human(playerName);
                 case "computer":
-                    return new Computer(String.format("CPU Player %s", playerNum));
+                    return new Computer(String.format("Player %s (CPU)", playerNum));
                 default:
                     System.out.println("Please choose 'human' or 'computer'");
             }
