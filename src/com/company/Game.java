@@ -109,10 +109,9 @@ class Game {
     }
 
     private void addToHistory(String winner, String winningMove, String loser, String losingMove) {
-        String log = winner + " (" + winningMove + ")" + " beats " + loser + " (" + losingMove + ")";
+        String log = String.format("WINNER: %s (%s)  |  LOSER: %s (%s)", winner, winningMove, loser, losingMove);
+        System.out.println(log);
         history.add(log);
-
-        System.out.printf("%s (%s) beats %s (%s)!\n", winner, winningMove, loser, losingMove);
     }
 
     private Player requestPlayer(int playerNum) {
@@ -128,7 +127,7 @@ class Game {
                     String playerName = scanner.nextLine();
                     return new Human(playerName);
                 case "computer":
-                    return new Computer("Player " + playerNum + " (CPU)");
+                    return new Computer(String.format("CPU Player %s", playerNum));
                 default:
                     System.out.println("Please choose 'human' or 'computer'");
             }
