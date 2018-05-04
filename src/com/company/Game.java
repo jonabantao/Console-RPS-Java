@@ -4,6 +4,11 @@ import java.util.*;
 
 class Game {
 
+    private final Map<String, String> WINNING_HANDS= new HashMap<String, String>() {{
+        put("rock", "scissors");
+        put("scissors", "paper");
+        put("paper", "rock");
+    }};
     private ArrayList<String> history = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
     private boolean isPlaying = true;
@@ -35,6 +40,8 @@ class Game {
                     System.out.println("Invalid option!");
             }
         }
+
+        System.out.println("Thanks for playing!");
     }
 
     private void displayIntro() {
@@ -50,11 +57,50 @@ class Game {
         player1 = requestPlayer(1);
         player2 = requestPlayer(2);
 
+        playRound();
         askToPlayAgain();
     }
 
+    private void playRound() {
+        while(true) {
+            String firstPlayerInput = player1.requestPlayerInput();
+            String secondPlayerInput = player2.requestPlayerInput();
+            int compareInput = determineWinningPlayer(firstPlayerInput, secondPlayerInput);
+
+            switch (compareInput) {
+                case 1:
+                    addToHistory(player1.getName(), firstPlayerInput, player2.getName(), secondPlayerInput);
+                    System.out.println(player1.getName() + " chooses " + firstPlayerInput + " and wins!");
+                    return;
+                case 2:
+                    addToHistory(player2.getName(), firstPlayerInput, player1.getName(), secondPlayerInput);
+                    System.out.println(player2.getName() + " chooses " + secondPlayerInput + " and wins!");
+                    return;
+                default:
+                    System.out.println("Tie! Play again!");
+            }
+        }
+    }
+
+
+    /*
+    *   Returns the player number who wins based on hand played
+    *
+    *   @param input1   Player one's hand
+    *   @param input2   Player two's hand
+    *   @return         Integer of winning player, 3 if it's a tie
+     */
+    private int determineWinningPlayer(String input1, String input2) {
+        if (input1.equals(input2)) {
+            return 3;
+        }
+
+        String losingHand = WINNING_HANDS.get(input1);
+
+        return input2.equals(losingHand) ? 1 : 2;
+    }
+
     private void quit() {
-        System.out.println("Thanks for playing!");
         isPlaying = false;
     }
 
