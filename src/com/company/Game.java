@@ -24,21 +24,26 @@ class Game {
         while (isPlaying) {
             displayIntro();
 
-            lowercaseInput = scanner.nextLine();
+            try {
+                lowercaseInput = scanner.nextLine();
 
-            switch(lowercaseInput) {
-                case "play":
-                    play();
-                    break;
-                case "history":
-                    showHistory();
-                    break;
-                case "quit":
-                    quit();
-                    break;
-                default:
-                    System.out.println("Invalid option!");
+                switch(lowercaseInput) {
+                    case "play":
+                        play();
+                        break;
+                    case "history":
+                        showHistory();
+                        break;
+                    case "quit":
+                        quit();
+                        break;
+                    default:
+                        System.out.println("Invalid option!");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
         }
 
         System.out.println("Thanks for playing!");
@@ -105,7 +110,11 @@ class Game {
     private void showHistory() {
         history.forEach(System.out::println);
         System.out.println("Press Enter/Return to Continue...");
-        scanner.nextLine();
+        try {
+            scanner.nextLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void addToHistory(String winner, String winningMove, String loser, String losingMove) {
@@ -120,19 +129,40 @@ class Game {
         String playerInput;
 
         while (true) {
-            System.out.printf("Select 'human' or 'computer' for Player %s: ", playerNum);
-            playerInput = scanner.nextLine().toLowerCase();
+            try {
+                System.out.printf("Select 'human' or 'computer' for Player %s: ", playerNum);
+                playerInput = scanner.nextLine().toLowerCase();
 
-            switch(playerInput) {
-                case "human":
-                    System.out.println("What is your name?");
-                    String playerName = scanner.nextLine();
-                    return new Human(playerName);
-                case "computer":
-                    return new Computer(String.format("Player %s (CPU)", playerNum));
-                default:
-                    System.out.println("Please choose 'human' or 'computer'");
+                switch(playerInput) {
+                    case "human":
+                        System.out.println("What is your name?");
+                        String playerName;
+                        while (true) {
+                            playerName = scanner.nextLine().trim();
+
+                            try {
+                                validateUserName(playerName);
+                                break;
+                            } catch(NullPointerException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        }
+
+                        return new Human(playerName);
+                    case "computer":
+                        return new Computer(String.format("Player %s (CPU)", playerNum));
+                    default:
+                        System.out.println("Please choose 'human' or 'computer'");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        }
+    }
+
+    private void validateUserName(String name) throws NullPointerException {
+        if (name.isEmpty()) {
+            throw new NullPointerException("Name cannot be blank!");
         }
     }
 

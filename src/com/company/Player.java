@@ -7,7 +7,7 @@ abstract class Player {
         this.name = inputName;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 

@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -8,7 +9,7 @@ import java.util.Set;
 public class Human extends Player {
     private final Set<String> VALID_MOVES = new HashSet<>(Arrays.asList("rock", "paper", "scissors"));
 
-    public Human(String name) {
+    Human(String name) {
         super(name);
     }
 
@@ -22,12 +23,16 @@ public class Human extends Player {
 
         while (true) {
             System.out.println("Choose between 'rock', 'paper', 'scissors'");
-            humanInput = scanner.nextLine().toLowerCase();
+            try {
+                humanInput = scanner.nextLine().toLowerCase();
 
-            if (isValidMove(humanInput)) {
-                return humanInput;
-            } else {
-                System.out.println("Invalid move!");
+                if (isValidMove(humanInput)) {
+                    return humanInput;
+                } else {
+                    System.out.println("Invalid move!");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
