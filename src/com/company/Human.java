@@ -1,6 +1,5 @@
 package com.company;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
