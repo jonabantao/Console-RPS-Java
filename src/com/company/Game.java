@@ -22,10 +22,10 @@ class Game {
         System.out.println("Welcome to Rock Paper Scissors!\n");
 
         while (isPlaying) {
-            displayIntro();
+            displayMenu();
 
             try {
-                lowercaseInput = scanner.nextLine();
+                lowercaseInput = scanner.nextLine().toLowerCase();
 
                 switch(lowercaseInput) {
                     case "play":
@@ -49,21 +49,26 @@ class Game {
         System.out.println("Thanks for playing!");
     }
 
-    private void displayIntro() {
-        System.out.println("MAIN MENU");
-        System.out.println("=========");
-        System.out.println("1. Type 'play' to play");
-        System.out.println("2. Type 'history' to show history");
-        System.out.println("3. Type 'quit' to quit");
+    private void displayMenu() {
+        System.out.println(
+                "MAIN MENU\n" +
+                "=========\n" +
+                "1. Type 'play' to play\n" +
+                "2. Type 'history' to show history\n" +
+                "3. Type 'quit' to quit"
+        );
     }
 
     private void play() {
+        setupPlayers();
+        playRound();
+        askToPlayAgain();
+    }
+
+    private void setupPlayers() {
         // Int arguments in each player are used solely for naming the computers if CPU chosen
         player1 = requestPlayer(1);
         player2 = requestPlayer(2);
-
-        playRound();
-        askToPlayAgain();
     }
 
     private void playRound() {
@@ -170,9 +175,9 @@ class Game {
         String userInput;
         System.out.println("Do you want to play again? (y/n)");
 
-        userInput = scanner.nextLine();
+        userInput = scanner.nextLine().toLowerCase();
 
-        if (!userInput.toLowerCase().equals("y")) {
+        if (!userInput.equals("y")) {
             isPlaying = false;
         }
     }
